@@ -1,5 +1,7 @@
 import TinyReact from "./TinyReact";
 
+const root = document.getElementById("root");
+
 const virtualDOM = (
   <div className="container">
     <h1>你好 Tiny React</h1>
@@ -16,4 +18,6 @@ const virtualDOM = (
     2, 3
   </div>
 );
+
+TinyReact.render(virtualDOM, root);
 console.log(virtualDOM);
