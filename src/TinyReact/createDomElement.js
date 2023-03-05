@@ -11,6 +11,7 @@ export default function createDomElement(virtualDOM) {
     // 挂载完元素节点，需要把元素上的属性与事件也设置上
     updateNodeElement(newElement, virtualDOM);
   }
+  // 在根据 virtualDOM 创建 真实DOM 时，将对应 virtualDOM 顺便挂载在 真实DOM 上，方便做 diff 比对
   newElement._virtualDOM = virtualDOM;
   // 递归子节点
   virtualDOM.children?.forEach((v) => {
