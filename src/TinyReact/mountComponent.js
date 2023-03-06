@@ -4,6 +4,7 @@ import mountElement from "./mountElement";
 // 挂载组件，需要判断是 类组件 还是 函数组件
 export default function mountComponent(virtualDOM, container, oldDom) {
   let nextVirtualDOM = null;
+  let component = null;
   if (isFunctionComponent(virtualDOM)) {
     // 函数组件
     nextVirtualDOM = buildFUnctionComponent(virtualDOM);
@@ -11,9 +12,16 @@ export default function mountComponent(virtualDOM, container, oldDom) {
   } else {
     // 类组件
     nextVirtualDOM = buildClassComponent(virtualDOM);
+    component = nextVirtualDOM.component;
     console.log("类组件。。。");
   }
   mountElement(nextVirtualDOM, container, oldDom);
+  if (component) {
+    component.componentDidMount();
+    if (component?.props?.ref) {
+      component.props.ref(component);
+    }
+  }
 }
 
 function buildFUnctionComponent(virtualDOM) {
