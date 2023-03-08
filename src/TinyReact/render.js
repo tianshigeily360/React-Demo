@@ -5,5 +5,6 @@ export default function render(
   container,
   oldDom = container.firstChild
 ) {
+  console.log("virtualDOM", virtualDOM);
   diff(virtualDOM, container, oldDom);
 }

@@ -99,8 +99,62 @@ class DemoRef extends TinyReact.Component {
   }
 }
 
-TinyReact.render(<DemoRef />, root);
-// setTimeout(() => {
-//   TinyReact.render(<Alert name="李四" age={25} />, root);
-//   // TinyReact.render(<Heart title="Hello React!" />, root);
-// }, 2000);
+TinyReact.render(<Alert name="张三" age={20} />, root);
+setTimeout(() => {
+  TinyReact.render(<Alert name="李四" age={25} />, root);
+  // TinyReact.render(<Heart title="Hello React!" />, root);
+}, 2000);
+
+class KeyDemo extends TinyReact.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      persons: [
+        {
+          id: 1,
+          name: "张三",
+        },
+        {
+          id: 2,
+          name: "李四",
+        },
+        {
+          id: 3,
+          name: "王五",
+        },
+        {
+          id: 4,
+          name: "赵六",
+        },
+      ],
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+  componentWillUnmount() {
+    console.log("componentWillUnmount");
+  }
+  handleClick() {
+    const newState = JSON.parse(JSON.stringify(this.state));
+    // newState.persons.push(newState.persons.shift());
+    // newState.persons.splice(1, 0, { id: 100, name: "李逵" });
+    newState.persons.pop();
+    this.setState(newState);
+  }
+  render() {
+    return (
+      <div>
+        {/* <ol> */}
+        {this.state.persons.map((person) => (
+          <div key={person.id}>
+            {person.name}
+            {/* <DemoRef /> */}
+          </div>
+        ))}
+        {/* </ol> */}
+        <button onClick={this.handleClick}>按钮</button>
+      </div>
+    );
+  }
+}
+
+// TinyReact.render(<KeyDemo />, root);
